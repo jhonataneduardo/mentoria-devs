@@ -36,5 +36,5 @@ app.post('/mercados', (requisicao, respostaApi) => {
  
 
 app.listen(port, () => {
-    console.log("CONECTADOOOO!!");
+    console.log("Servidor rodando!");
 });

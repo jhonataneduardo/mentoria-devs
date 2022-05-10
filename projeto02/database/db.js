@@ -2,9 +2,9 @@ const client = require('./config');
 
 client.connect(err => {
     if (err) {
-        console.error("ERRRRRRRROU", err.stack);
+        console.error("Algo deu errado com a conexão com o banco de dados.", err.stack);
     } else {
-        console.log("CONECTADO COM O BANCO DE DADOS");
+        console.log("Conexão com o banco de dados realizada com sucesso.");
     }
 });
 
