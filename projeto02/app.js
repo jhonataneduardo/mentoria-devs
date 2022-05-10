@@ -19,8 +19,8 @@ app.post('/mercados', (requisicao, respostaApi) => {
 
     // comando para inserir dados na tabela "mercados"
     client.query({
-        text: 'INSERT INTO mercados(nome, cnpj, rede, cidade, estado) VALUES($1, $2, $3, $4, $5)', 
-        values: [body.nome, body.cnpj, body.rede, body.cidade, body.estado]}, (err, respostaDB) => {
+        text: 'INSERT INTO mercados(nome, cnpj, cidade, estado) VALUES($1, $2, $3, $4)', 
+        values: [body.nome, body.cnpj, body.cidade, body.estado]}, (err, respostaDB) => {
         if (err) {
             console.error("Query com ERRO", err.stack);
             // repostas da requisição
@@ -32,6 +32,26 @@ app.post('/mercados', (requisicao, respostaApi) => {
         }
     });
 
+});
+
+app.post('/produtos', (requisicao, respostaApi) => {
+
+    // pega os dados da requisição
+    const body = requisicao.body;
+
+    // comando para inserir dados na tabela "produtos"
+    client.query({
+        text: 'INSERT INTO produtos(nome, descricao, preco, mercado_id) VALUES($1, $2, $3, $4)',
+        values: [body.nome, body.descricao, body.preco, body.mercado_id]}, (err, responstaDB) => {
+            if (err) {
+                console.error("Algo deu errado ao tentar cadastrar um novo produto.")
+                respostaApi.status(400).send({"mensagem": err.stack});
+            } else {
+                console.log("A tentativa de cadastrar um novo produto deu certo.")
+                respostaApi.status(201).send({"mensagem": "Produto cadastrado com sucesso."});
+            }
+        });
+    
 });
  
 
