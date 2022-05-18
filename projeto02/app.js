@@ -34,6 +34,22 @@ app.post('/mercados', (requisicao, respostaApi) => {
 
 });
 
+
+
+app.get('/mercados', (requisicao, respostaApi) => {
+
+    client.query("select * from mercados", (deuErrro, respostaDB) => {
+        if (deuErrro) {
+            respostaApi.status(400).send({"mensagem": "Deu alguma erro :("})
+        } else {
+            respostaApi.status(200).send(respostaDB.rows)
+        }
+    });
+
+});
+
+
+
 app.post('/produtos', (requisicao, respostaApi) => {
 
     // pega os dados da requisição
@@ -53,6 +69,7 @@ app.post('/produtos', (requisicao, respostaApi) => {
         });
     
 });
+
  
 
 app.listen(port, () => {
